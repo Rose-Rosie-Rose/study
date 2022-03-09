@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
 // import BannerPage from './pages/Banner'
-import BannerCreatePage from './pages/Banner-create'
+import App from './App'
 
 ReactDOM.render(
   <React.StrictMode>
-    <BannerCreatePage />
+    <App />
   </React.StrictMode>,
   document.getElementById('root'),
 )

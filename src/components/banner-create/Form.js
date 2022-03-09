@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 const Form = (props) => {
-  const [fromValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState({
     width: 0,
     height: 0,
     backgroundColor: '',
@@ -11,7 +11,7 @@ const Form = (props) => {
 
   const handleInputChange = (e) => {
     setFormValues({
-      ...fromValues,
+      ...formValues,
       [e.target.name]: e.target.value,
     })
   }
@@ -28,8 +28,34 @@ const Form = (props) => {
   const handleSubmit = () => {
     // 값에 대한 유효성체크
     // 추가되는 시점에 id 부여
-    // 부모로부터 전달받은 함수에 추가되길 원하는 값 전달
-    props.onAddBanner(fromValues)
+    if (
+      formValues.width === 0 ||
+      formValues.height === 0 ||
+      formValues.backgroundColor === '' ||
+      formValues.text === ''
+    ) {
+      window.alert('값을 모두 채워주세요')
+      return
+    }
+
+    // if (formValues.width === 0) {
+    //   alert('넓이를 입력하세요')
+    // } else if (formValues.height === 0) {
+    //   alert('높이를 입력하세요')
+    // } else if (formValues.backgroundColor === '') {
+    //   alert('색상을 입력하세요')
+    // } else if (formValues.text === '') {
+    //   alert('텍스트를 입력하세요')
+    // } else {
+    //   // 부모로부터 전달받은 함수에 추가되길 원하는 값 전달
+    //   props.onAddBanner(formValues)
+    // }
+
+    // 추가되는 시점에 id 부여
+    props.onAddBanner({
+      id: Date.now(),
+      ...formValues,
+    })
   }
 
   return (
@@ -38,25 +64,25 @@ const Form = (props) => {
         name="width"
         placeholder="넓이"
         onChange={handleInputChange}
-        value={fromValues.width}
+        value={formValues.width}
       />
       <input
         name="height"
         placeholder="높이"
         onChange={handleInputChange}
-        value={fromValues.height}
+        value={formValues.height}
       />
       <input
         name="backgroundColor"
         placeholder="배경색"
         onChange={handleInputChange}
-        value={fromValues.backgroundColor}
+        value={formValues.backgroundColor}
       />
       <input
         name="text"
         placeholder="텍스트"
         onChange={handleInputChange}
-        value={fromValues.text}
+        value={formValues.text}
       />
       <button onClick={handleSubmit}>배너추가</button>
       <button onClick={handleReset}>리셋</button>

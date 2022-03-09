@@ -1,0 +1,18 @@
+{
+  "users":[
+    {
+      "id": 0,
+      "name": "홍길동",
+      "email": "a@naver.com",
+      "password": "1234",
+      "job": "백수"
+    },
+    {
+      "id": 1,
+      "name": "홍길순",
+      "email": "b@naver.com",
+      "password": "1234",
+      "job": "디자이너"
+    }
+  ]
+}
