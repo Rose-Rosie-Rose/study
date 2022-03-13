@@ -4,6 +4,13 @@ import BannerPage from './pages/Banner'
 import HomePage from './pages/Home'
 import SigninPage from './pages/Signin'
 import SignupPage from './pages/Signup'
+import GNB from './components/shared/GNB'
+import { UserContextProvider } from './contexts/user-context'
+import { PATHS } from './constants'
+import MyInfoPage from './pages/MyInfo'
+import PrivateRoute from './components/shared/PrivateRoute'
+import ResetCSS from './components/shared/ResetCSS'
+
 // 모든 컴포넌트의 최상위 부모
 
 // context api
@@ -13,15 +20,30 @@ import SignupPage from './pages/Signup'
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/banner" element={<BannerPage />}></Route>
-          <Route path="/banner-create" element={<BannerCreatePage />}></Route>
-          <Route path="/signin" element={<SigninPage />}></Route>
-          <Route path="/signup" element={<SignupPage />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <ResetCSS />
+      <UserContextProvider>
+        <BrowserRouter>
+          <GNB />
+          <Routes>
+            <Route path={PATHS.HOME} element={<HomePage />}></Route>
+            <Route path="/banner" element={<BannerPage />}></Route>
+            <Route
+              path={PATHS.BANNER_CREATE}
+              element={<BannerCreatePage />}
+            ></Route>
+            <Route path={PATHS.SIGN_IN} element={<SigninPage />}></Route>
+            <Route path={PATHS.SIGN_UP} element={<SignupPage />}></Route>
+            <Route
+              path={PATHS.MY_INFO}
+              element={
+                <PrivateRoute>
+                  <MyInfoPage />
+                </PrivateRoute>
+              }
+            ></Route>
+          </Routes>
+        </BrowserRouter>
+      </UserContextProvider>
     </div>
   )
 }

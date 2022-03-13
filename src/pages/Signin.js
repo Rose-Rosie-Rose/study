@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useUserContext } from '../contexts/user-context'
 
 const SigninPage = () => {
   const [formValues, setFormValues] = useState({
@@ -8,6 +9,8 @@ const SigninPage = () => {
   })
 
   const navigate = useNavigate()
+
+  const { setUser } = useUserContext()
 
   const handleInputChange = (e) => {
     setFormValues({
@@ -50,15 +53,14 @@ const SigninPage = () => {
         return
       }
 
-      // 로그인 성공시
-      localStorage.setItem(
-        'USER',
-        JSON.stringify({
-          email: user.email,
-          job: user.job,
-          name: user.name,
-        }),
-      )
+      // 로그인 성공시 context에 유저 정보를 저장하고
+      // 저장된 값을 로컬스토리지에 저장
+      setUser({
+        email: user.email,
+        job: user.job,
+        name: user.name,
+      })
+
       // 로그인 완료후에 홈으로 이동
       navigate('/')
     } catch (e) {
